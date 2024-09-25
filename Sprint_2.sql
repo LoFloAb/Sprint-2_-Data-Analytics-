@@ -11,7 +11,7 @@ FROM transaction
 JOIN company ON company.id = transaction.company_id;
 
 ### Identifica la companyia amb la mitjana més gran de vendes.
-SELECT company_name, AVG(amount)
+SELECT company_name, ROUND(AVG(amount),2) AS average
 FROM transaction
 JOIN company ON company.id = transaction.company_id
 WHERE declined = 0
@@ -80,7 +80,7 @@ WHERE NOT EXISTS
 ## Exercici 1
 ### Identifica els cinc dies que es va generar la quantitat més gran d'ingressos a l'empresa per vendes. 
 ### Mostra la data de cada transacció juntament amb el total de les vendes.
-SELECT SUM(amount) AS Ingressos, DATE(timestamp) AS Dada
+SELECT SUM(amount) AS income, DATE(timestamp) AS date
 FROM transaction
 WHERE declined = 0
 GROUP BY DATE(timestamp)
@@ -155,13 +155,17 @@ ORDER BY amount DESC;
 ### Necessitem optimitzar l'assignació dels recursos i dependrà de la capacitat operativa que es requereixi,
 ### per la qual cosa et demanen la informació sobre la quantitat de transaccions que realitzen les empreses,
 ### però el departament de recursos humans és exigent i vol un llistat de les empreses on especifiquis si tenen més de 4 transaccions o menys.
--- Para saber el número de transaciones que tiene cada empresa
+-- Creé una tabla temporal para saber el número de transaciones que tiene cada empresa
 CREATE TEMPORARY TABLE trans_count
 SELECT company_id, COUNT(id) AS transaction_count
 FROM transaction
 GROUP BY company_id;
 
 -- Para mostrar el listado de empresas que tienen más de 4 transacciones
-SELECT company_name, transaction_count
+SELECT company_name, transaction_count,
+CASE
+	WHEN transaction_count > 4 THEN "Más de 4 transacciones"
+	ELSE "Menos de 4 transacciones"
+END AS "¿Más? o, ¿menos?"
 FROM company JOIN trans_count ON company.id = trans_count.company_id
-WHERE transaction_count >= 4;
+ORDER BY transaction_count DESC;
