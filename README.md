@@ -1,3 +1,6 @@
-# IT-Academy_Data-Analytics
+# Sprint-2_(Data-Analytics_IT-Academy)
 
-En este repositorio compartiré los Sprints que vaya realizando en el curso de Especialización
+En este repositorio comparto el Sprints 2 que he realizado en el curso Data Analytics en la IT Academy.
+Dentro de los ficheros que presento están: 
+  El pdf con las explicaciones de mi razonamiento
+  El archivo sql con el script
