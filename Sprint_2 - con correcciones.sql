@@ -96,7 +96,7 @@ FROM company
 WHERE company_name = "Non Institute";
 
 -- #1 Mostra el llistat aplicant JOIN i subconsultes.
-SELECT *
+SELECT t.*
 FROM transaction AS t JOIN company AS c ON c.id = t.company_id
 WHERE company_name != "Non Institute" AND country = 
 	(SELECT country
@@ -136,21 +136,21 @@ ORDER BY amount DESC;
 ### Necessitem optimitzar l'assignació dels recursos i dependrà de la capacitat operativa que es requereixi,
 ### per la qual cosa et demanen la informació sobre la quantitat de transaccions que realitzen les empreses,
 ### però el departament de recursos humans és exigent i vol un llistat de les empreses on especifiquis si tenen més de 4 transaccions o menys.
--- Creé una tabla temporal para saber el número de transaciones que tiene cada empresa
-#CREATE TEMPORARY TABLE trans_count
-SELECT company_id, COUNT(id) AS transaction_count
-FROM transaction
+-- Creé una Query que usaré como tabla temporal para saber el número de transaciones que tiene cada empresa
+SELECT t.company_id, c.company_name, COUNT(t.id) AS transaction_count
+FROM transaction AS t
+JOIN company AS c ON c.id = t.company_id
 GROUP BY company_id;
 
 -- Para mostrar el listado de empresas que tienen más de 4 transacciones
-SELECT company_name, transaction_count,
+SELECT company_id, company_name, transaction_count,
 CASE
 	WHEN transaction_count > 4 THEN "Más de 4 transacciones"
 	ELSE "Menos de 4 transacciones"
 END AS "¿Más? o, ¿menos?"
 FROM
-	(SELECT c.company_name, t.company_id, COUNT(t.id) AS transaction_count
+	(SELECT t.company_id, c.company_name, COUNT(t.id) AS transaction_count
 	FROM transaction AS t
 	JOIN company AS c ON c.id = t.company_id
-	GROUP BY company_id) AS test
+	GROUP BY company_id) AS trans_count
 ORDER BY transaction_count DESC;
