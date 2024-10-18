@@ -1,5 +1,5 @@
 # Sprint 2 (Data Analytics - IT Academy)
-Repasar las nociones básicas para el uso de bases de datos relacionales. En este sprint, se inicia la experiencia práctica con una base de datos que contiene información de empresas dedicada a la venta de productos online. En esta actividad, el enfoque está en datos relacionados con las transacciones efectuadas y la información corporativa de las empresas que participaron.
+Repasar las nociones básicas para el uso de bases de datos relacionales. En este sprint, se inicia la experiencia práctica con una base de datos que contiene información de empresas dedicadas a la venta de productos online. En esta actividad, el enfoque está en datos relacionados con las transacciones efectuadas y la información corporativa de las empresas que participaron.
 
 :clipboard: Dentro de los ficheros que presento están:
   - El PDF con las explicaciones de mi razonamiento.
